@@ -1,6 +1,6 @@
 <template>
   <div v-if="weatherForecast" class="hello">
-    <h3>Weather forecast for city</h3>
+    <h3>Weather forecast for {{ weatherForecast.locationName }}</h3>
 
     {{weatherForecast.latitude }} {{ weatherForecast.longitude}}
     

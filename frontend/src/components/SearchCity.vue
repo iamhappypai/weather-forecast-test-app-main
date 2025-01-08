@@ -9,10 +9,15 @@
       v-if="selectedPlace"
       class="gmap-class"
       :center="selectedPlace"
-      :zoom="7"
+      :zoom="15"
       map-type-id="roadmap"
       ref="gmap"
     >
+    <GMapMarker
+        :key="marker.id"
+        v-for="marker in markers"
+        :position="marker.position"
+    />
     </GMapMap>
   </div>
 </template>

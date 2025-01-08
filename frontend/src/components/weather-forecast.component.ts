@@ -22,6 +22,7 @@ export default class WeatherForecast extends Vue {
   handleEvent = (data: any) => {
     this.weatherService?.getWeatherForecast(data.lat, data.lng)
     .then((res) => {
+      res.locationName = data.name;
       this.weatherForecast = res as any;
     })
     .catch((error) => {

@@ -8,6 +8,7 @@ export interface ForecastModel {
     timezone: string,
     timezone_abbreviation: string,
     utc_offset_seconds: string,
+    locationName?: string,
     current_weather: {
         temperature: number,
         windspeed: number,
