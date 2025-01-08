@@ -1,3 +1,4 @@
+import eventBus from '@/shared/event-bus';
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
@@ -13,6 +14,8 @@ export default class SearchCity extends Vue {
       lat: place.geometry.location.lat(),
       lng: place.geometry.location.lng(),
     };
+
+    eventBus.emit('onPlaceSelect', this.selectedPlace);
   }
 
 
