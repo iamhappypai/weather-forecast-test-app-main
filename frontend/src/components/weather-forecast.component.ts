@@ -1,5 +1,6 @@
 import WeatherService, { ForecastModel } from '@/services/weather-service.service';
 import eventBus from '@/shared/event-bus';
+import { ref } from 'vue';
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
