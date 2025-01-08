@@ -16,16 +16,16 @@ export default class WeatherForecast extends Vue {
     // TODO - use the latitude and longitude from the search city component
     // TODO - display the weather forecast in the template
     // TODO - Error handling, if the API call fails we should display an error message
-    console.log('on mount');
     eventBus.on('onPlaceSelect', this.handleEvent.bind(this));
   }
 
   handleEvent = (data: any) => {
-    console.log('this is from sibling', data, data.lat, this.weatherService);
     this.weatherService?.getWeatherForecast(data.lat, data.lng)
     .then((res) => {
-      console.log('weather reportr', res);
       this.weatherForecast = res as any;
+    })
+    .catch((error) => {
+      console.log(error);
     })
     .finally(() => console.log('finished'));
   };
