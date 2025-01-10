@@ -1,6 +1,6 @@
 import WeatherService, { ForecastModel } from '@/services/weather-service.service';
 import eventBus from '@/shared/event-bus';
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
@@ -10,7 +10,7 @@ import { Options, Vue } from 'vue-class-component';
 export default class WeatherForecast extends Vue {
 
   weatherService = new WeatherService();
-  weatherForecast = ref(null as unknown as ForecastModel);
+  weatherForecast: Ref<ForecastModel> = ref(null as unknown as ForecastModel);
    
   mounted() {
     // TODO - use the latitude and longitude from the search city component
@@ -20,10 +20,12 @@ export default class WeatherForecast extends Vue {
   }
 
   handleEvent = (data: any) => {
+    console.log(data)
     this.weatherService?.getWeatherForecast(data.lat, data.lng)
     .then((res) => {
       res.locationName = data.name;
       this.weatherForecast = res as any;
+      console.log(res);
     })
     .catch((error) => {
       console.log(error);
