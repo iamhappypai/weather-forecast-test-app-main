@@ -21,6 +21,7 @@ export default class WeatherForecast extends Vue {
 
   handleEvent = (data: any) => {
     console.log(data)
+    eventBus.emit('showLoader', true);
     this.weatherService?.getWeatherForecast(data.lat, data.lng)
     .then((res) => {
       res.locationName = data.name;
@@ -30,12 +31,12 @@ export default class WeatherForecast extends Vue {
     .catch((error) => {
       console.log(error);
     })
-    .finally(() => console.log('finished'));
+    .finally(() => eventBus.emit('showLoader', false));
   };
   
-  // beforeUnmount() {
-  //   eventBus.off('onPlaceSelect', this.handleEvent);
-  // };
+  beforeUnmount() {
+    eventBus.off('onPlaceSelect', this.handleEvent.bind(this));
+  };
 
 }
 

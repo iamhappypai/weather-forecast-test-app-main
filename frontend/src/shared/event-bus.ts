@@ -9,10 +9,15 @@ eventBus.on = (event: any, callback: any) => {
   eventBus.events[event].push(callback);
 };
 
-
 eventBus.emit = (event: any, ...args: any) => {
   if (eventBus.events[event]) {
     eventBus.events[event].forEach((callback: any) => callback(...args));
+  }
+};
+
+eventBus.off = (event: any, callback: any) => {
+  if (eventBus.events[event]) {
+    eventBus.events[event] = eventBus.events[event].filter((cb: any) => cb !== callback);
   }
 };
 
