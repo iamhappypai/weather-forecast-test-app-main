@@ -12,6 +12,7 @@
       :zoom="15"
       map-type-id="roadmap"
       ref="gmap"
+      @click="onMapClick"
     >
     <GMapMarker
         :key="marker.id"

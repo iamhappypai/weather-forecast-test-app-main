@@ -10,26 +10,39 @@ export default class SearchCity extends Vue {
   markers: any = [];
 
   placeChanged(place: any) {
-
     const lat = place.geometry.location.lat();
     const lng = place.geometry.location.lng()
+    
+    this.updateMarker(lat, lng, place.formatted_address);
+  }
+
+  onMapClick(place: any) {
+    console.log(place);
+    const lat = place.latLng.lat();
+    const lng = place.latLng.lng();
+    this.updateMarker(lat, lng, '');
+  }
+
+  updateMarker(lat: number, lng: number, placeName: string): void {
+
     this.selectedPlace = {
       lat,
       lng,
-      name: place.formatted_address
+      name: placeName
     };
 
     this.markers = [
       {
-        id: `${Date.now().toString(36)}-${place.formatted_address}`,
+        id: `${Date.now().toString(36)}-${placeName}`,
         position: {
           lat,
           lng
         }
       }
-    ]
+    ];
 
     eventBus.emit('onPlaceSelect', this.selectedPlace);
+
   }
 
 
