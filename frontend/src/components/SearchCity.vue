@@ -6,7 +6,6 @@
     <div>You can also click a location on the map to view the weather forecast</div>
     <!-- TODO add click event -->
     <GMapMap
-      v-if="selectedPlace"
       class="gmap-class"
       :center="selectedPlace"
       :zoom="15"

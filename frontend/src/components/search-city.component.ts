@@ -6,8 +6,56 @@ import { Options, Vue } from 'vue-class-component';
 })
 export default class SearchCity extends Vue {
 
-  selectedPlace: { lat: number; lng: number, name?: string} | null = null;
+  selectedPlace: { lat: number; lng: number, name?: string} | null = {lat: 0, lng: 0};
   markers: any = [];
+  error: any = '';
+
+  mounted(): void {
+    this.fetchUserLocation();
+  }
+
+  /*
+    Function to fetch current location of the user
+    Browser location is fetched using the navigator API
+    User needs to grant location permission when prompted for this to work
+  */
+  fetchUserLocation(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition( 
+        this.handleLocationAccessSuccess,
+        this.handleAccessError
+      );
+    } else {
+      this.error = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  handleLocationAccessSuccess(position: any) {
+    const { latitude, longitude } = position.coords;
+    this.selectedPlace = { lat: latitude, lng: longitude };
+    this.updateMarker(latitude, longitude, '');
+    this.error = null;
+  }
+
+  handleAccessError(error: any) {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        this.error = "User denied the request for Geolocation.";
+        break;
+      case error.POSITION_UNAVAILABLE:
+        this.error = "Location information is unavailable.";
+        break;
+      case error.TIMEOUT:
+        this.error = "The request to get user location timed out.";
+        break;
+      case error.UNKNOWN_ERROR:
+        this.error = "An unknown error occurred.";
+        break;
+      default:
+        this.error = "An error occurred while retrieving location.";
+    }
+    this.selectedPlace = {lat: 0, lng: 0};
+  }
 
   placeChanged(place: any) {
     const lat = place.geometry.location.lat();
