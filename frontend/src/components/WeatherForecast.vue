@@ -1,19 +1,32 @@
 <template>
   
-  <div v-if="weatherForecast" class="hello mt-5">
+  <div v-if="weatherForecast?.value" class="hello mt-5">
     <div class="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-      <h3 class="mt-5">Weather forecast for <span class="font-semibold">{{ weatherForecast.locationName }}</span></h3>
-
-
+      <h3 class="mt-5">Weather forecast for <span class="font-semibold">{{ weatherForecast.value?.locationName }}</span></h3>
         <ul class="text-gray-800 text-left p-4">
-          <li class="pb-2">Latitude: {{ weatherForecast.latitude }}</li>
-          <li class="pb-2">Longitude: {{ weatherForecast.longitude }}</li>
-          <li class="pb-2">Item 3: You can add more content.</li>
-          <li class="pb-2">Item 4: The last item in the list.</li>
+          <li class="pb-2">
+            Latitude:&nbsp;
+            <span class="font-semibold">{{ weatherForecast.value.latitude }}</span>
+          </li>
+          <li class="pb-2">
+            Longitude:&nbsp;
+            <span class="font-semibold">{{ weatherForecast.value.longitude }}</span>
+          </li>
+          <li class="pb-2">
+            Temperature:&nbsp;
+            <span class="font-semibold">
+              {{ weatherForecast.value.current_weather.temperature }}&nbsp;
+              {{ weatherForecast.value.current_weather_units.temperature }}
+            </span>
+          </li>
+          <li class="pb-2">
+            Wind speed:&nbsp;
+            <span class="font-semibold">
+              {{ weatherForecast.value.current_weather.windspeed }}&nbsp;
+              {{ weatherForecast.value.current_weather_units.windspeed }}
+            </span>
+          </li>
         </ul>
-        <p class="mt-2 text-gray-600">
-          This is a simple description of the card content. You can add more details or a summary here.
-        </p>
     </div>
   </div>
 </template>

@@ -4,16 +4,14 @@ import { Ref, ref } from 'vue';
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
-  props: {
-  }
+  props: {}
 })
 export default class WeatherForecast extends Vue {
 
   weatherService = new WeatherService();
-  weatherForecast: Ref<ForecastModel> = ref(null as unknown as ForecastModel);
+  weatherForecast: Ref<ForecastModel | null> = ref(null);
    
   mounted() {
-    // TODO - use the latitude and longitude from the search city component
     // TODO - display the weather forecast in the template
     // TODO - Error handling, if the API call fails we should display an error message
     eventBus.on('onPlaceSelect', this.handleEvent.bind(this));
@@ -25,8 +23,7 @@ export default class WeatherForecast extends Vue {
     this.weatherService?.getWeatherForecast(data.lat, data.lng)
     .then((res) => {
       res.locationName = data.name;
-      this.weatherForecast = res as any;
-      console.log(res);
+      this.weatherForecast = ref(res);
     })
     .catch((error) => {
       console.log(error);
