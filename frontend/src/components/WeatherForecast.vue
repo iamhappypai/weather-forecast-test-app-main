@@ -33,6 +33,3 @@
 
 <script lang="ts" src="./weather-forecast.component.ts"></script>
 
-<style>
-
-</style>
