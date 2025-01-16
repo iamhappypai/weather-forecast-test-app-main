@@ -38,7 +38,6 @@ export async function getWeatherForecast(lat: number, lng: number): Promise<any>
           }
         });
     
-        console.log('Weather Data:', response.data);
 
         return response.data;
       } catch (error: any) {
