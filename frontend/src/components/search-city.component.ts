@@ -55,6 +55,7 @@ export default class SearchCity extends Vue {
         this.error = "An error occurred while retrieving location.";
     }
     this.selectedPlace = {lat: 0, lng: 0};
+    this.updateMarker(0, 0, 'Unknown Place');
   }
 
   placeChanged(place: any) {
