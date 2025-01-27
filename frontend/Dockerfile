@@ -1,5 +1,6 @@
 FROM node:19.9.0
 
+# Set the working directory
 WORKDIR /feapp
 
 COPY package.json .
@@ -10,6 +11,6 @@ RUN yarn install
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["yarn", "serve"]

@@ -1,7 +1,9 @@
 FROM node:19.9.0
 
+# Set the working directory
 WORKDIR /beapp
 
+# Copy package.json and install dependencies
 COPY package.json .
 
 COPY yarn.lock .
