@@ -1,34 +1,53 @@
+import axios from 'axios';
 
 export interface ForecastModel {
     latitude: number,
     longitude: number,
     elevation: number,
+    generationtime_ms: number,
+    timezone: string,
+    timezone_abbreviation: string,
+    utc_offset_seconds: string,
     current_weather: {
         temperature: number,
         windspeed: number,
         winddirection: number,
         weathercode: number,
         time: Date
+    },
+    current_weather_units: {
+        time: string,
+        interval: string,
+        temperature: string,
+        windspeed: string,
+        winddirection: string,
+        is_day: string,
+        weathercode: string
     }
 }
 
 
-export async function getWeatherForecast(lat: number, lng: number): Promise<ForecastModel> {
+export async function getWeatherForecast(lat: number, lng: number): Promise<any> {
 
-    // TODO: make a call to this API with latitude and longitude from the frontend
-    // use axios to make the call
-    //  https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true
+    try {
+        const response = await axios.get('https://api.open-meteo.com/v1/forecast', {
+          params: {
+            latitude: lat,
+            longitude: lng,
+            current_weather: true
+          }
+        });
+    
 
-    return {
-        latitude: 52.52,
-        longitude: 13.41,
-        elevation: 0,
-        current_weather: {
-            temperature: 10,
-            windspeed: 10,
-            winddirection: 10,
-            weathercode: 10,
-            time: new Date()
+        return response.data;
+      } catch (error: any) {
+        console.log(error);
+        if (error.code === 'ECONNABORTED') {
+          console.error('Request timed out.');
+        } else if (error.response) {
+          console.error('Error Response:', error.response.status, error.response.data);
+        } else {
+          console.error('Error:', error.message);
         }
-    };
+      }
 }

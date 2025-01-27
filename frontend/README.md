@@ -1,4 +1,4 @@
-# exerp-test-frontend
+# Exerp Weather App
 
 ## Project setup
 ```

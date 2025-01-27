@@ -1,0 +1,26 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vue-frontend
+    volumes:
+    - ./frontend:/feapp
+    - /feapp/node_modules
+    ports:
+    - '8080:8080'
+    depends_on:
+      - backend
+    restart: always
+    command: ["yarn", "serve"]
+  
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+    - ./backend:/beapp
+    - /beapp/node_modules
+    ports:
+      - '3000:3000'
+    restart: always
