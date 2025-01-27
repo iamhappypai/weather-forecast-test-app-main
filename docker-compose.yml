@@ -1,0 +1,25 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+    - ./frontend:/feapp
+    - /feapp/node_modules
+    ports:
+    - '3002'
+    depends_on:
+      - backend
+    restart: always
+  
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+    - ./backend:/beapp
+    - /beapp/node_modules
+    expose:
+      - '3001'
+    restart: always
