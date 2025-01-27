@@ -10,23 +10,25 @@ export default class WeatherForecast extends Vue {
 
   weatherService = new WeatherService();
   weatherForecast: Ref<ForecastModel | null> = ref(null);
+
+  apiErrorMessage = '';
    
   mounted() {
-    // TODO - display the weather forecast in the template
     // TODO - Error handling, if the API call fails we should display an error message
     eventBus.on('onPlaceSelect', this.handleEvent.bind(this));
   }
 
   handleEvent = (data: any) => {
-    console.log(data)
     eventBus.emit('showLoader', true);
     this.weatherService?.getWeatherForecast(data.lat, data.lng)
     .then((res) => {
       res.locationName = data.name;
       this.weatherForecast = ref(res);
+      this.apiErrorMessage = '';
     })
-    .catch((error) => {
-      console.log(error);
+    .catch(() => {
+      this.apiErrorMessage = 'We are not able to fetch the latest weather forecast for the requested location. Please try after sometime.';
+      this.weatherForecast = ref(null);
     })
     .finally(() => eventBus.emit('showLoader', false));
   };
