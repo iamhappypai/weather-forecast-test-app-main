@@ -4,7 +4,11 @@
     <GMapAutocomplete @place_changed="placeChanged" class="gmap-autocompolete"/>
 
     <div>You can also click a location on the map to view the weather forecast</div>
-    <!-- TODO add click event -->
+    <div v-if="error" class="mt-5 mb-5 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg" role="alert">
+      <span class="block">
+        {{ error }}
+      </span>
+    </div>
     <GMapMap
       class="gmap-class"
       :center="selectedPlace"

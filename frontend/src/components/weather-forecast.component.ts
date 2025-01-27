@@ -8,13 +8,12 @@ import { Options, Vue } from 'vue-class-component';
 })
 export default class WeatherForecast extends Vue {
 
-  weatherService = new WeatherService();
-  weatherForecast: Ref<ForecastModel | null> = ref(null);
+  public weatherService = new WeatherService();
+  public weatherForecast: Ref<ForecastModel | null> = ref(null);
 
-  apiErrorMessage = '';
+  public apiErrorMessage = '';
    
   mounted() {
-    // TODO - Error handling, if the API call fails we should display an error message
     eventBus.on('onPlaceSelect', this.handleEvent.bind(this));
   }
 
